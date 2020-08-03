@@ -26,3 +26,5 @@ $ python ellipse_calculator.py
 132 95.309326
 134 108.000000
 ```
+
+![plot example](screenshot.png)
