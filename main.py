@@ -12,21 +12,23 @@ wall_path = [
 
 x0 = 12*12+3 - (2*12+1)/2  # horizontal middle of horizontal ceiling segment
 y0 = 9*12  # height of horizontal ceiling segment
+x_interval_inches = 6
+ellipse_bottom_height_from_floor = 5*12
 
 def main():
     # vertices on the walls
-    el = Ellipse(center=[0*12, y0], a=x0-(0*12), b=5*12)
+    el = Ellipse(center=[0*12, y0], a=x0-(0*12), b=y0-ellipse_bottom_height_from_floor)
     epath = el.parametric_path(t0=3/2*np.pi, t1=2*np.pi, n=32)
 
     # one vertex on the horizontal ceiling segment
-    el = Ellipse(center=[2*12, y0], a=x0-(2*12), b=5*12)
-    epath = el.parametric_path(t0=1.43*np.pi, t1=2*np.pi, n=32)
+    # el = Ellipse(center=[2*12, y0], a=x0-(2*12), b=5*12)
+    # epath = el.parametric_path(t0=1.43*np.pi, t1=2*np.pi, n=32)
 
     # print out measurements at equal x-intervals
     f = el.function(sign=-1)
     xmax = el.center[0] + el.a
-    x_interval_inches = 6
     print('  x y')
+
     for x in np.arange(0, xmax, x_interval_inches):
         print('%3.0f %3f' % (x, f(x)))
 
@@ -38,7 +40,7 @@ def main():
     plt.figure()
     plt.plot(*zip(*wall_path), 'k-')
     plt.plot(*zip(*epath), 'r-')
-    plt.plot([f1[0], f2[0]], [f1[1], f2[1]], 'r.')
+    # plt.plot([f1[0], f2[0]], [f1[1], f2[1]], 'r.')
     plt.axis('equal')
     plt.show()
 
